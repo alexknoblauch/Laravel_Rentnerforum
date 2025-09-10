@@ -44,29 +44,38 @@
 
 
     <div class="overlay hidden fixed inset-0 bg-black/50 z-40"></div>
-    <div class="">
-  <div class="modal hidden m-4 sm:m-6 md:m-12 lg:m-16 p-4 sm:p-6 md:p-8 w-[90%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] 2xl:w-[40%] h-auto max-h-[90vh] overflow-y-auto bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">            
-        <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
-            <form class="form grid grid-rows-[2fr_8fr]" action="" method="POST">
-                @csrf
-
-                <div class="flex items-center justify-between mt-4">
-
-                    <div class="relative flex flex-row imtes-center ustify-center gap-4 w-[100%]">
-                        <label class="flex items-center justify-center text-[20px] md:text-xl" for="title">Titel:</label>
+        <div class="">
+            <div class="modal hidden m-4 sm:m-6 md:m-12 lg:m-16 p-4 sm:p-6 md:p-8 w-[90%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] 2xl:w-[40%] h-auto max-h-[90vh] overflow-y-auto bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">            <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
+                @auth
+                    
+                <form class="form grid grid-rows-[2fr_8fr]" action="" method="POST">
+                    @csrf
+                    
+                    <div class="flex items-center justify-between mt-4">
+                        
+                        <div class="relative flex flex-row imtes-center ustify-center gap-4 w-[100%]">
+                            <label class="flex items-center justify-center text-[20px] md:text-xl" for="title">Titel:</label>
                             <div class="input-title-error text-red-500 absolute top-[95%] md:left-[15%] left-[25%]"></div>
-                        <input  class="input-title rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[70%]" name="title" id="title" type="text">
+                            <input  class="input-title rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[50%]" name="title" id="title" type="text">
+                        </div>
+                        
                     </div>
-
+                    <div class="mt-4 h-[100%]">
+                        <p>Bitte vergewissern Sie sich zuerst ob die betreffende Gruppe bereits existiert. Danke!<br>Bitte nur Allgemeine Gruppennamen vergeben.<br> Zum Beispiel "<b>Schach</b>" nicht "<b><s>Schach Freunde</s></b>" oder "<b><s>Schachfiguren</s></b>". </p>So können wir einen Gruppen Überschuss vermeiden.
+                        <div class=" flex justify-center items-center">
+                            <button type="submit" class="btn-submit mt-4 px-6 py-2 md:w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Erstellen</button>            
+                        </div>
+                    </form>
+                    @endauth
+                    @guest
+                        <div class=" mt-24 md:mt-0">
+                                <div class="flex text-center items-center justify-center">
+                                    <p class="items-center justify-center">Registrieren Sie sich im Forum um interaktiv teilzunehmen.</p>
+                                </div>    
+                        </div>
+                    @endguest
                 </div>
-                <div class="mt-4 h-[100%]">
-                    <p>Bitte vergewissern Sie sich zuerst ob die betreffende Gruppe bereits existiert. Danke!<br>Bitte nur Allgemeine Gruppennamen vergeben.<br> Zum Beispiel "<b>Schach</b>" nicht "<b><s>Schach Freunde</s></b>" oder "<b><s>Schachfiguren</s></b>". </p>So können wir einen Gruppen Überschuss vermeiden.
-                <div class=" flex justify-center items-center">
-                    <button type="submit" class="btn-submit mt-4 px-6 py-2 md:w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Erstellen</button>            
-                </div>
-            </form>
         </div>
-    </div>
     
     <script>
         const modal = document.querySelector('.modal')
@@ -79,6 +88,7 @@
         const groupContainer = document.querySelector('.group-container')
 
 
+        if(btnSubmit) {
         btnSubmit.addEventListener('click', async function(e){
             e.preventDefault()
             const click = e.target
@@ -115,7 +125,7 @@
                 console.log(error)
             }
         })
-
+        }
 
         function openColoseModal() {
             modal.classList.toggle('hidden')

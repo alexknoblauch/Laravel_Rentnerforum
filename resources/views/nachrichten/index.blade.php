@@ -204,6 +204,7 @@
           if(window.innerWidth < 768) {
           messageContainer.innerHTML = ''}
 
+          
 
 
         //CREATE MESSAGING FUNKTION TEXTAREA FULLFUNKTION
@@ -244,7 +245,9 @@
             chat[0].messages.forEach(msg => {
               createMessages(msg)
               scrollToBottomConversation()
+              
             }) 
+            
 
               
             //SEND MESSAGE & UPDATE UI
@@ -272,6 +275,7 @@
               
                 createMessages(data.data)
                 scrollToBottomConversation()
+
               })
             }
             createTextarea()

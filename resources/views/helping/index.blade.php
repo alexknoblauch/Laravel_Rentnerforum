@@ -53,9 +53,11 @@
         </div>
     </div>
 
+
+    <!--MODAL -->
     <div class="overlay hidden fixed inset-0 bg-black/50 z-40"></div>
     <div class=" mt-24 md:mt-0">
-  <div class="modal hidden
+    <div class="modal hidden
               m-4 sm:m-6 md:m-12 lg:m-16
               p-4 sm:p-6 md:p-8
               w-[90%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] 2xl:w-[40%]
@@ -65,55 +67,68 @@
               rounded-xl z-50">       <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
             <form class="grid grid-rows-[auto_auto_auto] md:grid-rows-[2fr_8fr]" method="POST" action="{{route('helping.store')}}">
                 @csrf
-                <div class="flex md:flex-row flex-col  items-start justify-between mt-4">
-                    <div class="flex flex-row imtes-center ustify-center gap-4 w-[100%]">
-                        <label class="flex items-center justify-center text-[20px] md:text-xl" for="title">Titel:</label>
-                        <div class="input-title-error text-red-500 absolute top-[95%] md:left-[15%] left-[25%]"></div>
-                        <input  class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[70%]" name="title" id="title" type="text">
-                    </div>
-                    <div  class="flex flex-row imtes-center ustify-center gap-4 w-[70%] mt-4">
-                        <label class=" flex items-center justify-center md:text-xl" for="canton">Kanton:</label>
-                        <select class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[40%] w-full h-full" name="canton"  id="canton">
-                            <option value="" selected disabled></option>
-                            <option value="AG">Aargau</option>
-                            <option value="AI">Appenzell Innerrhoden</option>
-                            <option value="AR">Appenzell Ausserrhoden</option>
-                            <option value="BE">Bern</option>
-                            <option value="BL">Basel-Landschaft</option>
-                            <option value="BS">Basel-Stadt</option>
-                            <option value="FR">Freiburg</option>
-                            <option value="GE">Genf</option>
-                            <option value="GL">Glarus</option>
-                            <option value="GR">Graubünden</option>
-                            <option value="JU">Jura</option>
-                            <option value="LU">Luzern</option>
-                            <option value="NE">Neuenburg</option>
-                            <option value="NW">Nidwalden</option>
-                            <option value="OW">Obwalden</option>
-                            <option value="SG">St. Gallen</option>
-                            <option value="SH">Schaffhausen</option>
-                            <option value="SO">Solothurn</option>
-                            <option value="SZ">Schwyz</option>
-                            <option value="TG">Thurgau</option>
-                            <option value="TI">Tessin</option>
-                            <option value="UR">Uri</option>
-                            <option value="VD">Waadt</option>
-                            <option value="VS">Wallis</option>
-                            <option value="ZG">Zug</option>
-                            <option value="ZH">Zürich</option>
-                        </select>
-                    </div>
-                </div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 mt-4 w-full">
+    
+    <!-- Titel -->
+    <div class="flex items-center gap-2 w-full md:w-1/2">
+        <label for="title" class="text-[20px] md:text-xl md:text-xl whitespace-nowrap">Titel:</label>
+        <input
+            class="rounded-xl border border-gray-500 outline-none focus:border-gray-500 focus:ring-0 w-full px-3 py-2"
+            name="title"
+            id="title"
+            type="text"
+        >
+    </div>
+
+    <!-- Kanton -->
+    <div class="flex items-center gap-2 w-full md:w-1/2">
+        <label for="canton" class="text-[20px] md:text-xl md:text-xl whitespace-nowrap">Kanton:</label>
+        <select
+            class="rounded-xl border border-gray-500 outline-none focus:border-gray-500 focus:ring-0 w-full px-3 py-2"
+            name="canton"
+            id="canton"
+        >
+            <option value="" selected disabled>Bitte wählen</option>
+            <option value="AG">Aargau</option>
+            <option value="AI">Appenzell Innerrhoden</option>
+            <option value="AR">Appenzell Ausserrhoden</option>
+            <option value="BE">Bern</option>
+            <option value="BL">Basel-Landschaft</option>
+            <option value="BS">Basel-Stadt</option>
+            <option value="FR">Freiburg</option>
+            <option value="GE">Genf</option>
+            <option value="GL">Glarus</option>
+            <option value="GR">Graubünden</option>
+            <option value="JU">Jura</option>
+            <option value="LU">Luzern</option>
+            <option value="NE">Neuenburg</option>
+            <option value="NW">Nidwalden</option>
+            <option value="OW">Obwalden</option>
+            <option value="SG">St. Gallen</option>
+            <option value="SH">Schaffhausen</option>
+            <option value="SO">Solothurn</option>
+            <option value="SZ">Schwyz</option>
+            <option value="TG">Thurgau</option>
+            <option value="TI">Tessin</option>
+            <option value="UR">Uri</option>
+            <option value="VD">Waadt</option>
+            <option value="VS">Wallis</option>
+            <option value="ZG">Zug</option>
+            <option value="ZH">Zürich</option>
+        </select>
+    </div>
+</div>
+
                 <div class="mt-4 h-[100%]">
                     <div class="flex md:flex-row flex-col justify-between flex-row items-start justify-left mb-2">
                         <div class="flex items-center justify-between order-2 md:order-1">
                             <svg class="md:h-7 md:w-7 mr-2 w-15 -mt-4 sm:-mt-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M323.4 85.2l-96.8 78.4c-16.1 13-19.2 36.4-7 53.1c12.9 17.8 38 21.3 55.3 7.8l99.3-77.2c7-5.4 17-4.2 22.5 2.8s4.2 17-2.8 22.5l-20.9 16.2L512 316.8 512 128l-.7 0-3.9-2.5L434.8 79c-15.3-9.8-33.2-15-51.4-15c-21.8 0-43 7.5-60 21.2zm22.8 124.4l-51.7 40.2C263 274.4 217.3 268 193.7 235.6c-22.2-30.5-16.6-73.1 12.7-96.8l83.2-67.3c-11.6-4.9-24.1-7.4-36.8-7.4C234 64 215.7 69.6 200 80l-72 48 0 224 28.2 0 91.4 83.4c19.6 17.9 49.9 16.5 67.8-3.1c5.5-6.1 9.2-13.2 11.1-20.6l17 15.6c19.5 17.9 49.9 16.6 67.8-2.9c4.5-4.9 7.8-10.6 9.9-16.5c19.4 13 45.8 10.3 62.1-7.5c17.9-19.5 16.6-49.9-2.9-67.8l-134.2-123zM16 128c-8.8 0-16 7.2-16 16L0 352c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-224-80 0zM48 320a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM544 128l0 224c0 17.7 14.3 32 32 32l32 0c17.7 0 32-14.3 32-32l0-208c0-8.8-7.2-16-16-16l-80 0zm32 208a16 16 0 1 1 32 0 16 16 0 1 1 -32 0z"/></svg>
-                            <label class="md:text-xl -ml-2 md:-ml-0" for="description">Beschreibung:</label><br>
+                            <label class=" -ml-2 md:-ml-0 text-[20px] md:text-xl" for="description">Beschreibung:</label><br>
                         </div>
                         <div class="flex gap-2 order-1 md:order-2">
-                            <label class="md:text-xl" for="gemeinde">Gemeinde:</label><br>
+                            <label class="text-[20px] md:text-xl" for="gemeinde">Gemeinde:</label><br>
                             <div class="relative">
-                                <input autocomplete="off" class="gemeinde-input rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[12.5rem] w-full h-full" name="gemeinde" id="gemeinde" type="text">
+                                <input autocomplete="off" class="gemeinde-input rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-full h-full" name="gemeinde" id="gemeinde" type="text">
                             <div class="gemeinde-output absolute top-[3rem] left-[0%] rounded-l author-results bg-[#F2F2F2]"></div>
                             </div>
                         </div>

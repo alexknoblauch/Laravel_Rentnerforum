@@ -55,7 +55,7 @@
                 <svg class="cursor-pointer btn-travel h-[2.8rem] w-[2.8rem] p-2 bg-blue-300 border rounded-xl " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
                 <p class="italic">Neuer Ausflug</p>
             </div>   
-            <div class="flex justify-center flex-row mt-8 p-4">
+            <div class="flex justify-center flex-row mt-8 p-4 -ml-12">
                 <img class="md:h-36 md:w-36 h-24 w-24 object-cover rounded-full -mr-12 border-white border-4 z-10 " src="{{asset('imgs/travel/alpwirtschaft-horben-sommer-12.jpg')}}" alt="">
                 <img class="md:h-36 md:w-36 h-24 w-24 object-cover rounded-full -mr-12 border-white border-4 z-10 "  src="{{asset('imgs/travel/verkehrshaus-luzern-1.jpg')}}" alt="">
                 <img class="md:h-36 md:w-36 h-24 w-24 object-cover rounded-full -mr-12 border-white border-4 z-10 "  src="{{asset('imgs/travel/photo-1530638458177-fcc275860f8b.avif')}}" alt="">

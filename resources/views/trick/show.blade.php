@@ -44,14 +44,16 @@
       </div>
 
       <!-- Comments: SECOND on small screens -->
-      <div class="max-h-[80vh] md:overflow-y-auto scroll-container p-4 order-2 md:order-1 md:col-start-1 md:border-r md:border-gray-300"> 
-        <form action="javascript:void(0)" class="comment-form relative md:hidden" method="POST">
-          @csrf
-          <textarea class=" textarea-input bg-cyan-100 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
-          <button class="btn-form-submit block md:hidden rounded-full bg-white flex items-center justify-center rounded-full " type="submit">
+      <div class="comment-left-container max-h-[80vh] md:overflow-y-auto scroll-container p-4 order-2 md:order-1 md:col-start-1 md:border-r md:border-gray-300"> 
+        @auth
+          <form action="javascript:void(0)" class="comment-form relative md:hidden" method="POST">
+            @csrf
+            <textarea class=" textarea-input bg-blue-100 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+            <button class="btn-form-submit block md:hidden rounded-full bg-white flex items-center justify-center rounded-full " type="submit">
               <svg class="absolute top-[45%] bg-white left-[91%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
-          </button>
-        </form>
+            </button>
+          </form>
+        @endauth
 
         <div class="comment-container">
             @if($comments->isEmpty())
@@ -73,13 +75,15 @@
             @endforeach
             @endif
         </div>
+        @auth
           <form action="javascript:void(0)" class="comment-form" method="POST">
             @csrf
-            <textarea class="textarea-input fixed bg-cyan-100 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+            <textarea class="textarea-input fixed bg-blue-100 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
             <button class="btn-form-submit hidden md:block flex items-center justify-center rounded-full " type="submit">
               <svg class="absolute bottom-[4%] bg-white left-[26.5%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
             </button>
           </form>
+        @endauth
         </div>
     </div>
     <script>
@@ -91,6 +95,13 @@
         const btnFormSubmit = document.querySelectorAll('.btn-form-submit')
         const comments = @json($comments);
         const defaultComment = document.querySelector('.default-comment')
+        const isLoggedIn = @json(auth()->check());
+        const commentLeftContainer = document.querySelector('.comment-left-container')
+
+        if(!isLoggedIn){
+          commentLeftContainer.classList.add('max-h-[91vh]')
+          commentLeftContainer.classList.remove('max-h-[80vh]')
+        }
 
       //CREATE COMMENTS FUNCTION
         btnFormSubmit.forEach(btn => {

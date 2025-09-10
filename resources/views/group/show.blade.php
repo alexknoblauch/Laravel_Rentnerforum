@@ -42,7 +42,10 @@
         </div>
     </div>
 
+
+    <!-- MODAL -->
     <div class="overlay hidden fixed inset-0 bg-black/50 z-40"></div>
+    @auth
     <div class=" mt-24 md:mt-0">
         <div class=" modal hidden m-8 p-8 md:m-24 md:h-[65%] md:w-[60%] rounded-xl w-[90%] h-[65%] bg-white fixed inset-0 top-[40%] md:top-[30%] left-[45%] transform -translate-x-1/2 -translate-y-1/2  z-50">
             <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
@@ -97,18 +100,29 @@
                             <label class="md:text-xl" for="gemeinde">Gemeinde:</label><br>
                             <div class="relative">
                                 <input autocomplete="off" class="gemeinde-input rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[12.5rem] w-full h-full" name="gemeinde" id="gemeinde" type="text">
-                            <div class="gemeinde-output absolute top-[3rem] left-[0%] rounded-l author-results bg-[#F2F2F2]"></div>
+                                <div class="gemeinde-output absolute top-[3rem] left-[0%] rounded-l author-results bg-[#F2F2F2]"></div>
                             </div>
                         </div>
                     </div>
                     <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[100%] h-[80%]" name="description"  id="description"></textarea>
                 </div>
-                <button
-                    type="submit"
-                    class="mt-6 md:mt-4 px-6 py-2 w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen
-                </button>            
-            </form>
+            <button
+                type="submit"
+                class="mt-6 md:mt-4 px-6 py-2 w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen
+            </button>            
+        </form>
+    </div>
+    @endauth
+    @guest
+        <div class=" mt-24 md:mt-0">
+            <div class="modal hidden m-8 p-8 md:m-24 md:h-[65%] md:w-[60%] rounded-xl w-[90%] h-[65%] bg-white fixed inset-0 top-[40%] md:top-[30%] left-[45%] transform -translate-x-1/2 -translate-y-1/2  z-50 flex">
+                <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
+                <div class="flex text-center items-center justify-center">
+                    <p class="items-center justify-center">Registrieren Sie sich im Forum um interaktiv teilzunehmen.</p>
+                </div>    
+            </div>
         </div>
+    @endguest
     </div>
     
     <script>

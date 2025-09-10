@@ -25,6 +25,7 @@ class BookFactory extends Factory
             'cathegory' => $this->faker->randomElement(['Krimi', 'Roman', 'Biografie', 'Ratgeber', 'Geschichte', 'Wissenschaft', 'Natur', 'Philosofie']),
             'author_id' => $authorId,
             'description' => $this->faker->paragraph(3),
+            'image' => 'uploads/default_img_buch.jpg',
         ];
     }
 }

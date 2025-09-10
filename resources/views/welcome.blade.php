@@ -6,11 +6,14 @@
             <h1   class=" md:font-semibold text-4xl mt-6 xl:text-6xl mb-8 p-4 bg-gradient-to-r from-[#1864ab] to-[#339af0] bg-clip-text text-transparent">Willkommen im </br> Forum</h1>
             <p class="text-center">von uns für uns</p>
             <p class="text-center">werden sie teil der Bewegung.</p>
+            @guest
             <a
-            href="{{ route('register') }}"
-            class="bg-[#339af0] mt-8 mb-12 inline-block px-5 py-1.5 text-l dark:text-[#EDEDEC] border-[#339af0] border-gray  border rounded-full text-white text-[1.2rem] leading-normal">
-            Anmelden
-            </a>
+                href="{{ route('register') }}"
+                class="bg-[#339af0] mt-8 mb-12 inline-block px-5 py-1.5 text-l dark:text-[#EDEDEC] border-[#339af0] border-gray  border rounded-full text-white text-[1.2rem] leading-normal">
+                Registrieren            
+            </a>         
+            @endguest
+                
         </div>
         <div class="bg-gray-200 m-8 rounded-[2rem] md:bg-inherit flex items-center justify-center p-12 grid md:grid-cols-3 grid-cols-2 gap-4">
             <a href="{{route('cooking.index')}}" class="hover:animate-wobble hover:bg-[#d0ebff] bg-white md:bg-inherit  flex flex-col items-center justify-center border rounded-lg md:w-full p-6 mx-auto h-full cursor-pointer  md:border border-black h-28 w-28 md:h-[10.2rem] md:w-[9.2rem]">

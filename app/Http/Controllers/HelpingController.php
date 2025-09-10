@@ -18,6 +18,15 @@ class HelpingController extends Controller
         return view('helping.index', compact('tasks', 'gemeinden'));
     } 
 
+    public function update($id){
+        $post = Helpinghand::findOrFail($id);
+
+        $post->is_active = !$post->is_active;
+        
+        $post->save();
+        return response()->json('acivity', $post->is_active);
+    }
+
     public function show($slug){
         $post = Helpinghand::where('title_slug', $slug)->firstOrFail();
         $comments = Comment::where('commentable_id', $post->id)->latest()->get();

@@ -43,7 +43,7 @@ class CookingController extends Controller
         if($request->hasFile('image')){
             $imgPath = $request->file('image')->store('uploads', 'public');
         } else {
-            $imgPath = 'uploads/default_img.png';
+            $imgPath = 'uploads/kochen.png';
         }
 
         $data['image'] = $imgPath;

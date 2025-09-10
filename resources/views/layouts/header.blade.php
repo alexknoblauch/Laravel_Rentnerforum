@@ -1,7 +1,7 @@
 <header class="grid grid-cols-[3fr_3fr_3fr] w-full text-sm not-has-[nav]:hidden px-4 h-[3rem]" style="background: linear-gradient(to right, #1864ab, #339af0);">
 
     {{-- Linke Spalte: Logout oder leer --}}
-    <div class="flex items-center justify-start lg:px-2">
+    <div class="left-container flex items-center justify-start lg:px-2">
         @if(Route::has('login'))
             @auth
                 @if(request()->routeIs('welcome'))
@@ -37,10 +37,10 @@
         @guest
             <a href="{{ route('register') }}"
                class="px-5 py-1.5 dark:text-[#EDEDEC] border-black border-[1.5px] text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-full text-sm leading-normal bg-white hover:bg-[#e7f5ff]">
-                Register
+                Registerieren
             </a>
             <a href="{{ route('login') }}"
-               class="hidden lg:inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-black border-[1.5px] hover:border-[#1915014a] text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-full text-sm leading-normal bg-white hover:bg-[#e7f5ff]">
+               class=" px-5 py-1.5 dark:text-[#EDEDEC] border-black border-[1.5px] hover:border-[#1915014a] text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-full text-sm leading-normal bg-white hover:bg-[#e7f5ff]">
                 Login
             </a>
         @endguest
@@ -84,24 +84,21 @@
     </div>
 </header>
 <script>
-
-    function displayRedDotMessage(){
-        const lastTimeVisited = JSON.stringify(localStorage.getItem('last_seen_messages'))
-    }
-    displayRedDotMessage()
-
+    const lastTimeVisited = JSON.stringify(localStorage.getItem('last_seen_messages'))
 
     async function fetchForRedDotsMessage(){
         const messageIconDot = document.querySelector('.btn-message div')
         const res = await fetch("{{route('poll.messages')}}")
         const data = await res.json()
-        const lastTimeVisited = localStorage.getItem('last_seen_messages')
-        const newMessages = data.lastUpdated
-        console.log(data)
-        console.log(newMessages)
-        console.log(lastTimeVisited)
-        const hasNewMessages = newMessages.some(newMessage => lastTimeVisited < newMessage);
-    
+
+        const lastTimeVisited = new Date(localStorage.getItem('last_seen_messages'));
+        const currentUserId = @json(auth()->id());
+
+
+        const hasNewMessages = data.messages.some(msg =>
+            new Date(msg.timestamp) > lastTimeVisited &&
+            msg.sender !== currentUserId
+        );
 
         if (messageIconDot) {
             if (hasNewMessages) {
@@ -110,10 +107,6 @@
                 messageIconDot.classList.add('hidden');
             }
         }
-    }   
-
-    fetchForRedDotsMessage()    
-
-
-
+    }
+    fetchForRedDotsMessage()
 </script>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('canton');
             $table->text('description');
+            $table->boolean('is_active')->default(true);
             
             $table->index('user_id');
         });

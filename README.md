@@ -37,5 +37,3 @@ Laravel scheint mir ein optimaler Einstieg ins Backend. Ebenfalls analysierte un
 - Relationen & Modelle
 - Routebingind
 - RESTful Controllers
-- 
-

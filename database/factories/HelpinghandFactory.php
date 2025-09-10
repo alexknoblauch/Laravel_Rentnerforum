@@ -30,7 +30,8 @@ class HelpinghandFactory extends Factory
                 'title_slug' => Str::slug($title),
                 'type' => $this->faker->word(),
                 'canton' => $this->faker->randomElement(['AG', 'ZH', 'BE', 'BS', 'GR', 'LU', 'OW', 'NW']),
-                'description' => $this->faker->sentence(10)
+                'description' => $this->faker->sentence(10),
+                'is_active' => true
             ]
         ;
     }

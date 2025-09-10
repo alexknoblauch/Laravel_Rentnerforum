@@ -27,10 +27,10 @@ class MongoController extends Controller {
     }
 
     private function isoNow(): string {
-    $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
-    $mongoDate = new \MongoDB\BSON\UTCDateTime($now->getTimestamp() * 1000);
-    return $mongoDate->toDateTime()->format('Y-m-d\TH:i:s\Z');
-}
+        $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $mongoDate = new \MongoDB\BSON\UTCDateTime($now->getTimestamp() * 1000);
+        return $mongoDate->toDateTime()->format('Y-m-d\TH:i:s\Z');
+    }
 
 
     public function index(){
@@ -39,10 +39,13 @@ class MongoController extends Controller {
 
         //Filtering
         $userId = Auth::id(); 
-        $cursor = $collection->find(['participants' => $userId]);
+        $cursor = $collection->find(
+            ['participants' => $userId],
+            ['sort' => ['last_updated' => -1]]
+        );
         $messages = iterator_to_array($cursor);
 
-        
+         
         foreach ($messages as &$message) {
             $participants = $message['participants_name'];
             $otherIndex = $participants[0] === 0 ? 1 : 0;
@@ -112,13 +115,11 @@ class MongoController extends Controller {
             return response()->json(['error' => 'invalid dataformat'], 400);
         }
 
-
         $newMessage = [
             'sender' => (int)$id,
             'text' => $data['comment'],
             'timestamp' => $this->isoNow(),
         ];
-
 
         //DB update
         $dbUpdate = $collection->updateOne(
@@ -129,14 +130,12 @@ class MongoController extends Controller {
             ]
         );
 
-
         if($dbUpdate->getModifiedCount() === 0){
             return response()->json([
                 'message' => 'DB update failed',
                 'status' => 400,
             ]);
         }  
-
 
         //Response
         return response()->json([
@@ -146,24 +145,30 @@ class MongoController extends Controller {
         ]);
     }
 
-
     
-    
-    public function poll(Request $request){
-        $curUser = Auth::user()->id;
+    public function poll(Request $request) {
+        $curUser = Auth::id();
         $collection = $this->getMongoCollection();
         $chats = $collection->find(['participants' => $curUser]);
-        
-        $lastUpdated = [];
-        
-        foreach($chats as $chat){
-            $lastUpdated[] = $chat['last_updated'];
+
+        $messagesData = [];
+
+        foreach ($chats as $chat) {
+            if (isset($chat['messages'])) {
+                foreach ($chat['messages'] as $message) {
+                    $messagesData[] = [
+                        'timestamp' => $message->timestamp,
+                        'sender' => $message->sender
+                    ];
+                }
+            }
         }
-        
+
         return response()->json([
-            'lastUpdated' => $lastUpdated
+            'messages' => $messagesData
         ]);
     }
+
 
 
     //wird nicht gebruacht, lösung mit PHP Block in Blade

@@ -9,7 +9,7 @@ class Cooking extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title', 'duration', 'description', 'title_slug'];
+    protected $fillable = ['title', 'duration', 'description', 'title_slug', 'image'];
 
     public function user(){
         return $this->belongsTo(User::class);

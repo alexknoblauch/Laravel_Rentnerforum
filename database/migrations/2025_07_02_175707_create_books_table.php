@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('seiten');  
             $table->foreignId('author_id')->constrained()->cascadeOnDelete();
             $table->text('description');
+            $table->string('image');
 
             $table->index('author_id');
         });

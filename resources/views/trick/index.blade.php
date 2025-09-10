@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="flex items-center flex-col justify-center">
-                    <p class="italic mx-4 -mt-4 md:-mt-0 md:block text-center text-sm md:text-[1rem] max-w-[80%]">Erkenntnisse und Erfahrungen, hier können Sie erzählen und inspirieren. Was hält Sie aktiv? Haben Sie neue Aufgaben in Angriff genommen? Teilen Sie ihre täglichen Tricks & Tipps mit Anderen.</p>
+                    <p class="italic mx-4 -mt-4 md:-mt-0 md:block text-center text-sm md:text-[1rem] max-w-[80%]">Erkenntnisse und Erfahrungen, hier können Sie erzählen und inspirieren.<br> Was hält Sie aktiv? Haben Sie neue Aufgaben in Angriff genommen?<br> Teilen Sie ihre täglichen Tricks & Tipps mit Anderen.</p>
                     <div class="flex items-center gap-2 justify-center mt-8">
                         <svg class="cursor-pointer btn-addRecipe h-[2.8rem] w-[2.8rem] p-2 bg-blue-300 border rounded-xl " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
                         <p class="italic">Neuer Eintrag</p>
@@ -69,7 +69,7 @@
                         <svg class="h-5 w-5 mr-2 am:mt-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M420.9 448C428.2 425.7 442.8 405.5 459.3 388.1C492 353.7 512 307.2 512 256C512 150 426 64 320 64C214 64 128 150 128 256C128 307.2 148 353.7 180.7 388.1C197.2 405.5 211.9 425.7 219.1 448L420.8 448zM416 496L224 496L224 512C224 556.2 259.8 592 304 592L336 592C380.2 592 416 556.2 416 512L416 496zM312 176C272.2 176 240 208.2 240 248C240 261.3 229.3 272 216 272C202.7 272 192 261.3 192 248C192 181.7 245.7 128 312 128C325.3 128 336 138.7 336 152C336 165.3 325.3 176 312 176z"/></svg>
                         <label class=" text-[1.2rem]" for="description">Beschreib:</label><br>
                     </div>
-                    <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[100%] h-[60%]" name="description"  id="description"></textarea>
+                    <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[100%] md:h-[60%] h-[50%]" name="description"  id="description"></textarea>
                     <button
                         type="submit"
                         class="mt-4 px-6 py-2 w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen

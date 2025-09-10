@@ -72,7 +72,7 @@
             m-4 sm:m-6 md:m-8
             p-4 sm:p-6 md:p-8
             h-auto 
-            max-h-[70vh] sm:max-h-[80vh] md:max-h-[85vh] lg:max-h-[90vh]
+            max-h-[35vh] sm:max-h-[35vh] md:max-h-[75vh] lg:max-h-[75vh]
             bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
             rounded-xl z-50
         ">       
@@ -156,7 +156,7 @@
                         </div>
 
                     </div>
-                    <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 h-[25%] w-[100%] md:w-[100%] md:h-[80%]" name="description"  id="description"></textarea>
+                    <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 h-[25%] w-[100%] md:w-[100%] md:h-[60%]" name="description"  id="description"></textarea>
                     <button
                         type="submit"
                         class="md:mt-2 px-6 py-2 w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen
@@ -199,7 +199,8 @@
             }
         })
  
-            
+    //CHECK AUTHORS
+  
         const authors = @json($authors);
 
         function authorSearch(inputText){
@@ -243,7 +244,7 @@
             }
         })
 
-        //CREATE ZURÜCK BUTTON FÜR MOBILE
+    //CREATE ZURÜCK BUTTON FÜR MOBILE
           function renderBackButton(){
             const backButton = document.querySelector('.back-button')
             const isMobileWith = window.innerWidth < 768

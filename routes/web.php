@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/comment-post', [CommentController::class, 'store'])->name('comment.store');
     Route::post('/trick/store', [TrickController::class, 'store'])->name('trick.store');
     Route::post('/nachricht/create', [MongoController::class, 'create'])->name('nachricht.create');
+    Route::post('/helfende-hand/{post}/active-deactivate', [HelpingController::class, 'update'])->name('helping.update');
+
 });
 
 
@@ -75,7 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [MongoController::class, 'index'])->name('profile.index');
     Route::get('/message/all', [MongoController::class, 'getChatPartner'])->name('getChatPartner');
     Route::get('/poll-messages', [MongoController::class, 'poll'])->name('poll.messages');
-
 });
 
 require __DIR__.'/auth.php';
+
+
