@@ -15,25 +15,54 @@ Laravel scheint mir ein optimaler Einstieg ins Backend. Ebenfalls analysierte un
 -Welcome Page
 -Create Content
 -Comment Content
+-Messaging
+-Img Upoload
 
 
 3. 🛠️ Installation / Setup
+
+- Repository klonen
+git clone 
+
+- Abhängigkeiten installieren
+composer install
+
+- Environment konfigurieren
+cp .env.example .env
+php artisan key:generate
+
+- Migrationen ausführen
+php artisan migrate
+
+- Development Server starten
+php artisan serve
 
 
 
 5. 📓 gelernetes 
 
 - DB search Algorythmus und Resultate in UI abbilden inkl. Letter Highlighting.
-- MongoDB einbindung
-- Modulierung Funktionen
-- JS basierte UI Elemente erstellen.
+- MongoDB für Messaging
+- SQL DB (Railway) für Content
+- Modularizierung nktionen
+- JavaScript kreierte UI Elemente erstellen/ einfügen.
 - Backend logik (Req/ Res Cycle)
+- Long Polling
+- Verschidene neue Laravel Files berührt
 
 
-5. ✔ Vertieft 
+5. ✔ Gelernt & Vertieft 
 
 - Factorys & Seeders
-- Tests
-- Relationen & Modelle
-- Routebingind
+- MongoDB integartion für Messaging
+- Long Polling für Chat Funktionialität
+- Dynamische UI Elemente mit JavaScript
+- Datenbank-Suche mit Ergebnis Hihglighting
+- Multi Databas Architektur
+
+
+- Factories & Seeders
+- Tests (Unit & Freature)
+- Model Relations
+- Route Binding
 - RESTful Controllers
