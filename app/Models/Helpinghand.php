@@ -22,7 +22,7 @@ class Helpinghand extends Model
     }
 
     public function comments(){
-        return $this->morpthMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function gemeinde(){

@@ -33,12 +33,14 @@
                   <p class="text-lg whitespace-nowrap">Kontakt</p>
                 </a>
               @endif
+              @elseif($post->user->id !== auth()->id())<p class="text-l whitespace-nowrap text-gray-400 italic">Kontakt zu Zeit geschlossen </p>
             @endif
 
             @if($post->user->id === auth()->id())
               <div class="flex justify-center items-center">
-                <input class="h-4 w-4 rounded-full black mr-2 post-active-submit" id="activatePost" name="activatePost" type="checkbox" @if ($post->is_active === 0) checked @endif>
-                <label class="text-lg" for="activatePost">Post deaktivieren <i class="text-sm">(keine Nachrichten mehr senden)</i>
+
+                <input class="input-checked h-4 w-4 rounded-full black mr-2 post-active-submit"  @checked($post->is_active == 0) id="activatePost" name="activatePost" type="checkbox" >
+                <label class="text-lg " for="activatePost" >Post deaktivieren <i class="text-sm">(keine Nachrichten mehr senden)</i>
               </div>
             @endif
           </div>
@@ -57,34 +59,40 @@
         @auth
         <form action="javascript:void(0)" class="comment-form relative md:hidden" method="POST">
           @csrf
-          <textarea class="textarea-input bg-blue-100 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+          <textarea class="textarea-input bg-blue-200 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
           <button class="btn-form-submit block md:hidden rounded-full bg-white flex items-center justify-center rounded-full " type="submit">
             <svg class="absolute top-[45%] bg-white left-[91%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
           </button>
         </form>
         @endauth
           @if($comments->isEmpty())
+              @guest
+                <p class="italic text-center text-[0.9rem] mt-8 mb-8">Noch keine Kommentare vorhanden... <br> Registreiren Sie sich um Kommentare zu schreiben.</p>
+              @endguest
+              
+              @auth
               <div class="default-comment">
-                <p class="italic text-center text-[0.9rem] mt-4 mb-8">Noch keine Kommentare vorhanden... <br> Sei der Erste!</p>
-              </div>           
+                <p class="italic text-center text-[0.9rem] mt-8 mb-8">Noch keine Kommentare vorhanden... <br> Sei der Erste!</p>
+              </div>            
+              @endauth         
           @endif
         <div class="comment-container">
           @foreach($comments as $comment)
             <div class="hover:bg-gray-200 p-2 rounded-[9px] bg-[#EAECEF] flex flex-col gap-2 mb-4">
               <div class="flex items-center justify-between">
                   <div class="flex items-center  gap-2">
-                      <h3 class="text-[0.7rem] md:text-[0.9rem]">{{$comment->user->name}}</h3>
+                      <h3 class="text-[1rem] md:text-[1rem]">{{$comment->user->name}}</h3>
                   </div>
-                <p class="flex-between mr-4 text-[0.7rem] md:text-[0.9rem]">#{{ $loop->count - $loop->index}}</p>
+                <p class="flex-between mr-4 text-[1rem] md:text-[0.9rem]"># {{ $loop->count - $loop->index}}</p>
               </div>
-              <p class="text-gray-700 text-[0.7rem] md:text-[0.7rem] w-[80%]">{{$comment->comment}}</p>
+              <p class="text-gray-700 text-[0.85rem] md:text-[0.85rem] w-[80%] ml-1 leading-tight">{{$comment->comment}}</p>
             </div>
           @endforeach
         </div>
         @auth
         <form class="comment-form" method="POST">
           @csrf
-          <textarea class="textarea-input fixed bg-blue-100 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+          <textarea class="textarea-input fixed bg-blue-200 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
           <button class="btn-form-submit hidden md:block flex items-center justify-center rounded-full " type="submit">
             <svg class="absolute bottom-[4%] bg-white left-[26.5%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
           </button>
@@ -95,13 +103,13 @@
 
 
       <!-- MODAL -->
-    <div class="overlay hidden fixed inset-0 bg-black/50 z-40"></div>
-      <div class="modal hidden m-8 p-8 md:m-24 md:h-[40%] md:w-[30%] rounded-xl w-[90%] h-[70%] bg-white fixed inset-0 top-[40%] md:top-[30%] left-[45%] transform -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col">
+    <div class="overlay  hidden fixed inset-0 bg-black/50 z-40"></div>
+      <div class="modal hidden m-8 p-8 md:m-24 md:h-[60%] md:w-[30%] rounded-xl w-[90%] h-[70%] bg-white fixed inset-0 top-[40%] md:top-[30%] left-[45%] transform -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col">
           <form data-sendto="{{ $post->user->id }}" class="form-message" method="POST">
             @csrf
             <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
             <p class="text-[20px] mb-2">Nachricht:</p>
-            <textarea name="message" class="w-full flex-grow resize-none rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+            <textarea name="message" class="w-full h-full flex-grow resize-none rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
             <button type="submit" class="btn-message-submit mt-4 px-6 py-2 self-en d rounded-full bg-blue-500 text-white font-semibold shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition-all duration-300">
               Senden
             </button>
@@ -121,11 +129,23 @@
         const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
         const commentLeftContainer = document.querySelector('.comment-left-container')
         const postActive = document.querySelector('.post-active-submit')
+        const checkboxNachrichtHelfendeHand = document.querySelector('.input-checked')
 
         if(!isLoggedIn){
           commentLeftContainer.classList.add('max-h-[91vh]')
           commentLeftContainer.classList.remove('max-h-[80vh]')
         }
+
+
+
+        checkboxNachrichtHelfendeHand.addEventListener('change', function(){
+          fetch(`{{route('helping.changeCheckbox', $post->id)}}`, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN' : csrfToken,
+            }
+          })
+        })
 
 
         // Activate-desactive Post checkbox
@@ -211,11 +231,11 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center  gap-2"> 
                     <img class="h-7 w-7 rounded-full border border-black" src="{{ asset('imgs/User/avatarBgremove.png') }}" alt="User Avatar">
-                    <h3 class="text-[0.7rem] md:text-[0.9rem]">${comment.user.name}</h3>
+                    <h3 class="text-[1rem] md:text-[1rem]">${comment.user.name}</h3>
                     </div>
-                    <p class="flex-between mr-4 text-[0.7rem] md:text-[0.9rem]">#${iteration}</p>
+                    <p class="flex-between mr-4 text-[1rem] md:text-[0.9rem]"># ${iteration}</p>
                     </div>
-                    <p class="text-gray-700 text-[0.7rem] md:text-[0.7rem] w-[80%]">${comment.comment}</p>
+                    <p class="text-gray-700 text-[0.85rem] md:text-[0.85rem] w-[80%] ml-1 leading-tight">${comment.comment}</p>
                     </div>
                     `
                   }).join('')

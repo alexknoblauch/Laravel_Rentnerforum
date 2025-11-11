@@ -14,8 +14,6 @@ use MongoDB\BSON\ObjectId;
 use Carbon\Carbon;
 
 
-
-
 class MongoController extends Controller {
 
     private function getMongoCollection($collectionName = 'messages') {
@@ -44,7 +42,6 @@ class MongoController extends Controller {
             ['sort' => ['last_updated' => -1]]
         );
         $messages = iterator_to_array($cursor);
-
          
         foreach ($messages as &$message) {
             $participants = $message['participants_name'];

@@ -10,6 +10,7 @@ class Group extends Model
 
     use HasFactory;
 
+    protected $table = 'grouping';
     protected $guarded = [];
 
     public function groupPosts(){

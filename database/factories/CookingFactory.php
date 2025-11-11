@@ -28,7 +28,7 @@ class CookingFactory extends Factory
             'duration' => $this->faker->randomElement([15, 20, 25, 30, 35, 40, 45, 50, 55, 60]),
             'description' => $this->faker->paragraph(4),
             'user_id' => User::factory(),
-            'image' => 'uploads/kochen.png'
+            'image' => 'uploads/default_img_kochen.png'
         ];
     }
 }

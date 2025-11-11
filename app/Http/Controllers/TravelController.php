@@ -9,19 +9,27 @@ use App\Models\Gemeinde;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+
 
 
 class TravelController extends Controller
 {
     public function index(){
-        $travels = Travel::latest()->get();
+
+        $travels = Cache::remember('travels', now()->addMinutes(1), function () {
+            return Travel::latest()->get();
+        }); 
+
         $gemeinden = Gemeinde::all();
 
         return view('travel.index', compact('travels', 'gemeinden'));
     }
 
     public function show(Request $request, $slug){
-        $travel = Travel::with('likes')->where('title_slug', $slug)->firstOrFail();
+        $travel = Cache::remember("cooking.{$slug}", now()->addMinutes(60), function () use ($slug) {
+            return Travel::with('likes')->where('title_slug', $slug)->firstOrFail();
+        });
         $type = get_class($travel);
         $travel['type'] = $type; 
         $comments = Comment::where('commentable_id', $travel->id)->where('commentable_type', 'App\\Models\\Travel')->latest()->get();
@@ -29,6 +37,8 @@ class TravelController extends Controller
     }
 
     public function store(Request $request){
+
+        Cache::forget('travels');
 
         ##HTTP-Request
         $validated = $request->validate([
@@ -40,9 +50,9 @@ class TravelController extends Controller
         ]);
 
         if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('uploads', 'public');
+            $imgPath = $request->file('image')->storePublicly('uploads', 's3');
         } else {
-            $imgPath = 'uploads/default_img.png';
+            $imgPath = 'uploads/default_img_travel.png';
         }
 
         

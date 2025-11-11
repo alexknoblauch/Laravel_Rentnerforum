@@ -8,12 +8,16 @@ use App\Models\Helpinghand;
 use App\Models\Comment;
 use App\Models\Gemeinde;
 use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Cache;
+
 
 
 class HelpingController extends Controller
 {
     public function index(){
-        $tasks = Helpinghand::latest()->get();
+        $tasks = Cache::remember('helpings', now()->addMinutes(1), function () {
+            return Helpinghand::latest()->get();
+        }); 
         $gemeinden = Gemeinde::all();
         return view('helping.index', compact('tasks', 'gemeinden'));
     } 
@@ -34,6 +38,8 @@ class HelpingController extends Controller
     }
 
     public function store(Request $request){
+            Cache::forget('helpings');
+
             ##HTTP Request
             $data = $request->validate([
                 'title' => ['max:60', 'string', 'required'],
@@ -52,5 +58,14 @@ class HelpingController extends Controller
 
             ##HTTP Response
             return redirect(route('helping.index'));
+    }
+
+    public function changeCheckbox(Request $request, $id){
+        $post = Helpinghand::findOrFail($id);
+        $post['is_active'] = $post[is_active] === 0 ? 1 : 0;
+        $post->save();
+        ##HTTP Response
+        return response()->noContent(); 
+
     }
 }

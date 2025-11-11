@@ -9,17 +9,25 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+
 
 class CookingController extends Controller
 {
     
     public function index($slug = null){
-        $cookings = Cooking::latest()->get();
+        $cookings = Cache::remember('cookings', now()->addMinutes(60), function () {
+            return Cooking::latest()->get();
+        });   
+
         return view('cooking.index', compact('cookings'));
     }
 
     public function show($slug){
-        $post = Cooking::with('likes')->where('title_slug', $slug)->firstOrFail();
+        $post = Cache::remember("cooking.{$slug}", now()->addMinutes(60), function () use ($slug) {
+            return Cooking::with('likes')->where('title_slug', $slug)->firstOrFail();
+        });
+        
         $comments = Comment::where('commentable_id', $post->id)->where('commentable_type', 'App\\Models\\Cooking')->latest()->get();
         $type = get_class($post);
         $post['type'] = $type;
@@ -28,6 +36,9 @@ class CookingController extends Controller
     }
 
     public function store(Request $request){
+
+        Cache::forget('cookings');
+
         ##HTTP request
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -41,9 +52,9 @@ class CookingController extends Controller
         }
 
         if($request->hasFile('image')){
-            $imgPath = $request->file('image')->store('uploads', 'public');
+            $imgPath = $request->file('image')->storePublicly('uploads', 's3');
         } else {
-            $imgPath = 'uploads/kochen.png';
+            $imgPath = 'uploads/default_img_kochen.png'; 
         }
 
         $data['image'] = $imgPath;

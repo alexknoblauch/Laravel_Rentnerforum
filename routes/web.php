@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\CookingController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\GroupPostController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -29,9 +29,6 @@ Route::resource('tricks-und-tipps', TrickController::class)->only(['index', 'sho
 Route::resource('profil', ProfilController::class)->only('index')->names(['index' => 'profil.index']);
 
 
-
-
-
 //Authenticated Feature Routes
 Route::middleware('auth')->group(function () {
     Route::post('/kochtipps/post', [CookingController::class, 'store'])->name('cooking.store');
@@ -42,16 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/trick/store', [TrickController::class, 'store'])->name('trick.store');
     Route::post('/nachricht/create', [MongoController::class, 'create'])->name('nachricht.create');
     Route::post('/helfende-hand/{post}/active-deactivate', [HelpingController::class, 'update'])->name('helping.update');
-
+    Route::post('/helfende-hand/{post}/changeCheckbox', [HelpingController::class, 'changeCheckbox'])->name('helping.changeCheckbox');
 });
 
 
-
 //Dashboard Route
-Route::get('/dashboard', function () {
+Route::middleware(['auth', 'verified', 'cache.response'])->get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+})->name('dashboard');
 
 
 //Group Router (Verschachtelt)

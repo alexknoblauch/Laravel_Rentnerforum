@@ -29,7 +29,7 @@ class TravelFactory extends Factory
             'gemeinde_id' => Gemeinde::factory(),
             'canton' => $this->faker->randomElement(['AG', 'ZH', 'BE', 'BS', 'GR', 'LU', 'OW', 'NW']),
             'description' => $this->faker->sentence(10),
-            'image' => 'uploads/default_img.png'
+            'image' => 'uploads/default_img_travel.png'
         ];
     }
 }

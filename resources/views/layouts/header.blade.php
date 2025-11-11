@@ -1,7 +1,6 @@
-<header class="grid grid-cols-[3fr_3fr_3fr] w-full text-sm not-has-[nav]:hidden px-4 h-[3rem]" style="background: linear-gradient(to right, #1864ab, #339af0);">
-
+<header style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; width: 100%; height: 3rem; padding: 0 1rem; background: linear-gradient(to right, #1864ab, #339af0); position: relative; z-index: 50;">
     {{-- Linke Spalte: Logout oder leer --}}
-    <div class="left-container flex items-center justify-start lg:px-2">
+    <div style="display: flex; align-items: center; justify-content: start;">
         @if(Route::has('login'))
             @auth
                 @if(request()->routeIs('welcome'))
@@ -18,26 +17,24 @@
     </div>
 
     {{-- Mittlere Spalte: Home Button --}}
-    <div class="flex items-center justify-center">
+    <div style="display: flex; align-items: center; justify-content: center;">
         @if(!request()->routeIs('nachrichten.index') && !request()->routeIs('welcome'))
-            @auth              
-                <a href="{{ route('welcome') }}">
-                    <svg fill="white" stroke-width="30" stroke="black" class="h-8 w-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <a class="cursor-pointer" href="{{ route('welcome') }}">
+                    <svg fill="white" stroke-width="30" stroke="black" class="h-8 w-8 mt-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                         <path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336V512C112 547.3 140.7 576 176 576H464C499.3 576 528 547.3 528 512V336H544C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384H336C362.5 384 384 405.5 384 432V528H256V432C256 405.5 277.5 384 304 384z"/>
                     </svg>
                 </a>
-            @endauth
         @endif
     </div>
 
     {{-- Rechte Spalte: Auth Links / Nachrichten / Zurück Button --}}
-    <div class="relative flex items-center justify-end gap-4 lg:px-2">
+    <div style="display: flex; align-items: center; justify-content: end; gap: 0.75rem;">
 
         {{-- Wenn NICHT eingeloggt und auf welcome -> Login/Register zeigen --}}
         @guest
             <a href="{{ route('register') }}"
                class="px-5 py-1.5 dark:text-[#EDEDEC] border-black border-[1.5px] text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-full text-sm leading-normal bg-white hover:bg-[#e7f5ff]">
-                Registerieren
+                Registrieren
             </a>
             <a href="{{ route('login') }}"
                class=" px-5 py-1.5 dark:text-[#EDEDEC] border-black border-[1.5px] hover:border-[#1915014a] text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-full text-sm leading-normal bg-white hover:bg-[#e7f5ff]">

@@ -34,11 +34,11 @@
             </div>
 
             <!-- Submit -->
-            <div class="flex items-center justify-between">
-                <a href="{{ route('login') }}" class="text-sm text-blue-600 hover:underline">Bereits registriert?</a>
+            <div class="flex items-center justify-between flex-col p-2">
                 <x-primary-button class="rounded-xl px-4 py-2 bg-blue-600 hover:bg-blue-700">
                     {{ __('Registrieren') }}
                 </x-primary-button>
+                <a href="{{ route('login') }}" class="text-sm text-blue-600 hover:underline mt-2">Bereits registriert?</a>
             </div>
         </form>
     </div>

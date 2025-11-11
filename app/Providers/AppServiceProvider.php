@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    
     /**
      * Register any application services.
      */
@@ -20,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
         Relation::morphMap([
             'post' => \App\Models\Post::class,
             'comment' => \App\Models\Comment::class,
@@ -31,4 +32,6 @@ class AppServiceProvider extends ServiceProvider
             'trick' => \App\Models\Trick::class,
         ]);
     }
+
+    
 }

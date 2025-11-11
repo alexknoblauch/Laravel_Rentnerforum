@@ -8,20 +8,23 @@ use App\Models\Trick;
 use App\Models\Comment;
 use Illuminate\Support\Str; 
 use Illuminate\Support\Facades\Auth;
-
-
-
-
+use Illuminate\Support\Facades\Cache;
 
 class TrickController extends Controller
 {
     public function index(){
-        $tricks = Trick::latest()->get();
+
+        $tricks = Cache::remember('tricks', now()->addMinutes(1), function () {
+            return Trick::latest()->get();
+        }); 
+
         return view('trick.index', compact('tricks'));
     }
 
     public function show(Request $request, $slug){
-        $trick = Trick::with('user')->where('title_slug', $slug)->firstOrFail();
+        $trick = Cache::remember("cooking.{$slug}", now()->addMinutes(60), function () use ($slug) {
+            return Trick::with('user')->where('title_slug', $slug)->firstOrFail();
+        });
         $tricks = Trick::latest()->get();
         $type = get_Class($trick);
         $comments = Comment::fetchMorphedComments($trick->id, $type);
@@ -29,6 +32,8 @@ class TrickController extends Controller
     }
 
     public function store(Request $request){
+
+        Cache::forget('tricks');
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:100'],

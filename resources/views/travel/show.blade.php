@@ -25,7 +25,7 @@
           </div>
 
           <div class="flex justify-center order-1">
-            <img class="md:ml-12 ml-0 h-40 w-40  rounded-xl shadow" src="{{ asset('storage/' . $travel->image) }}" alt="Foto des Gerichts">
+            <img class="md:ml-12 ml-0 h-40 w-40  rounded-xl shadow" src="{{ Storage::disk('s3')->url($travel->image)}}"  alt="Foto des Ortes">
           </div>
         </div>
 
@@ -39,14 +39,19 @@
       <!-- Comments: SECOND on small screens -->
       <div class="comment-left-container max-h-[80vh] md:overflow-y-auto scroll-container p-4 order-2 md:order-1 md:col-start-1">
         <form action="javascript:void(0)" class="comment-form relative md:hidden" method="POST">
-          <textarea class="textarea-input bg-blue-100 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+          <textarea class="textarea-input bg-blue-200 hover:bg-white mb-12 block md:hidden bottom-1 left-2 md:text-[0.8rem] w-[100%] h-[6rem] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
           <button class="btn-form-submit block md:hidden rounded-full bg-white flex items-center justify-center rounded-full " type="submit">
             <svg class="absolute top-[45%] bg-white left-[91%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
           </button>
         </form>
           @if($comments->isEmpty())
               <div class="default-comment">
-                <p class="italic text-center text-[0.9rem] mt-4 mb-8">Noch keine Kommentare vorhanden... <br> Sei der Erste!</p>
+                @guest
+                  <p class="italic text-center text-[0.9rem] mt-8 mb-8">Noch keine Kommentare vorhanden... <br> Registreiren Sie sich um Kommentare zu schreiben.</p>
+                @endguest
+                @auth
+                  <p class="italic text-center text-[0.9rem] mt-8 mb-8">Noch keine Kommentare vorhanden... <br> Sei der Erste!</p>
+                @endauth
               </div>         
           @endif
         <div class="comment-container">
@@ -55,18 +60,18 @@
               <div class="flex items-center justify-between">
                   <div class="flex items-center  gap-2"> 
                       <img class="h-7 w-7 rounded-full border border-black" src="{{ asset('imgs/User/avatarBgremove.png') }}" alt="User Avatar">
-                      <h3 class="text-[0.7rem] md:text-[0.9rem]">{{$comment->user->name}}</h3>
+                      <h3 class="text-[1rem] md:text-[1rem]">{{$comment->user->name}}</h3>
                   </div>
-                <p class="flex-between mr-4 text-[0.7rem] md:text-[0.9rem]">#{{ $loop->count - $loop->index}}</p>
+                <p class="flex-between mr-4 text-[1rem] md:text-[0.9rem]"># {{ $loop->count - $loop->index}}</p>
               </div>
-              <p class="text-gray-700 text-[0.7rem] md:text-[0.7rem] w-[80%]">{{$comment->comment}}</p>
+              <p class="text-gray-700 text-[0.85rem] md:text-[0.85rem] w-[80%] ml-1 leading-tight">{{$comment->comment}}</p>
             </div>
           @endforeach
         </div>
           @auth
             <form action="javascript:void(0)" class="comment-form" method="POST">
               @csrf
-              <textarea class="textarea-input fixed bg-blue-100 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
+              <textarea class="textarea-input fixed bg-blue-200 hover:bg-white hidden md:block bottom-4 left-8 md:text-[0.8rem] w-[27%] rounded-xl bg-gray-100 outline-none focus:ring-0 focus:border-black" placeholder="Dein Kommentar ..." name="comment"></textarea>
               <button class="btn-form-submit hidden md:block flex items-center justify-center rounded-full " type="submit">
                 <svg class="absolute bottom-[4%] bg-white left-[26.5%] h-6 w-6 z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
               </button>
@@ -130,11 +135,11 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center  gap-2"> 
                       <img class="h-7 w-7 rounded-full border border-black" src="{{ asset('imgs/User/avatarBgremove.png') }}" alt="User Avatar">
-                      <h3 class="text-[0.7rem] md:text-[0.9rem]">${comment.user.name}</h3>
+                      <h3 class="text-[1rem] md:text-[1rem]">${comment.user.name}</h3>
                     </div>
-                      <p class="flex-between mr-4 text-[0.7rem] md:text-[0.9rem]">#${iteration}</p>
+                      <p class="flex-between mr-4 text-[1rem] md:text-[0.9rem]"># ${iteration}</p>
                   </div>
-                    <p class="text-gray-700 text-[0.7rem] md:text-[0.7rem] w-[80%]">${comment.comment}</p>
+                    <p class="text-gray-700 text-[0.85rem] md:text-[0.85rem] w-[80%] ml-1 leading-tight">${comment.comment}</p>
                 </div>
               `
                   }).join('')

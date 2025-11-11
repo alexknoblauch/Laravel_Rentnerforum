@@ -42,8 +42,27 @@
         const msgObj = @json($messages);
         const csrfToken = @json(csrf_token());
         const currentUserId = @json(auth()->id());
+        const currentUserName = @json(auth()->user()->name);
         let chatpartnerName 
-        let objIDchat
+        let objIDchats
+
+
+        //UNREAD MESSAGES POLLING
+        const lastTimeVisited = localStorage.getItem('last_seen_messages');
+
+        function markUnreadMessages() {
+          msgObj.forEach((obj) => {
+            if (obj.last_updated > lastTimeVisited) {
+              // finde das Element mit dem passenden data-userid
+              const el = document.querySelector(`.user-message-preview[data-userid="${obj._id.$oid}"]`);
+              console.log(el)
+              if (el && obj.chatPartner === currentUserName) {
+                el.classList.add('font-bold'); // z. B. optische Markierung
+              }
+            }
+          });
+        }
+        markUnreadMessages()
 
 
         //SAVE TIMESTAMP LAST VISITED MESSAGE UI FOR RED DOT ON ICON
@@ -67,6 +86,30 @@
         
         function scrollToBottomMessage() {
           messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function createMessages(input){
+            const div = document.createElement('div')
+            const timeDiv = document.createElement('div')
+            div.classList.add('bg-gray-300', 'text-black', 'p-2', 'rounded')
+            timeDiv.classList.add('text-[0.7rem]', 'text-gray-400', 'p-2', 'rounded')
+            div.textContent = input.text
+            
+            const date = new Date(input.timestamp);
+            timeDiv.textContent = `${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`
+
+            const warper = document.createElement('div')
+            warper.classList.add('flex', 'mb-2')
+            
+            
+            if(input.sender === currentUserId){
+              warperAppend(warper, 'justify-end', div, timeDiv)
+              div.classList.add('bg-green-200')
+            } else {
+              warperAppend(warper, 'justify-start', timeDiv, div)
+            }
+
+            return {div, timeDiv}
         }
 
         function createMessages(input){

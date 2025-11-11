@@ -7,8 +7,10 @@
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center flex-col overflow-x-hidden">
        @include('layouts.header')
 
+
+    {{-- Left Grid --}}
     <div class="main-container grid grid-cols-[1fr] md:grid-cols-[3fr_7fr] px-4 md:overflow-y-hidden">
-        <div class="mb-2flex flex-col gap-2 md:border-r md:border-gray-300 order-2 md:order-1 max-h-[calc(100vh-3rem)] md:overflow-y-auto overflow-y-visible scroll-container ">
+        <div class="flex flex-col gap-2 md:border-r md:border-gray-300 order-2 md:order-1 max-h-[calc(100vh-3rem)] md:overflow-y-auto overflow-y-visible scroll-container ">
             <div>
                 @foreach ($travels as $travel)
                 <a href="{{route('travel.show', ['ausflug' => Str::slug($travel->title) ])}}" class="cursor-pointer hover:bg-gray-200 p-4 py-4 grid grid-cols-[8fr_2fr] rounded-l-lg mt-4">
@@ -19,30 +21,33 @@
                         </div>
                         <div>
                             <div class="flex flex-row justify-between">
-                                <p class="text-gray-500 md:text-base md:text-[0.6rem] ml-6">{{$travel->user->name}}</p>
+                                <p class="text-gray-500 text-[0.8rem] ml-6">{{$travel->user->name}}</p>
                                 <div class="flex items-end justify-end">
                                     <p class="whitespace-nowarp text-gray-500 md:text-[0.8rem] mr-2">{{$travel->canton}}</p>
                                 </div>     
                             </div>
                         </div>
                     </div>
-                    <div class="h-14 w-14 rounded-full p-[2px] bg-gradient-to-tr from-blue-400 to-yellow-500">
-
-                            <img src="{{ asset('storage/' . $travel->image) }}"                                   
+                    <div class="flex ml-auto h-14 w-14 rounded-full p-[2px] bg-gradient-to-tr from-blue-400 to-yellow-500">
+                            <img src="{{ Storage::disk('s3')->url($travel->image)}}"                                     
                             alt="Bild von Ausflugsziel"
-                            class="h-full w-full object-cover rounded-full border-2 border-white">
+                            class="h-full w-full object-cover rounded-full border-2 border-white items-center justify-center">
 
                     </div>     
                 </a>
                 @endforeach
             </div>
         </div>
+
+        
+
+        {{-- Right Grid --}}
         <div class="md:p-12 p-6 -mt-12 text-center leading-[3rem] order-1 md:order-2 mb-8 max-h-[calc(100vh-3rem)] ">
             <div class="flex flex-col items-center justify-center mb-8 mt-16">
                 <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-gray-900 text-center relative mb-6">
                     <span class="inline-block relative">
                         <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-11/12 h-2 bg-yellow-300 rounded-lg z-0"></span>
-                        <span class="relative z-10">Ausflüge</span>
+                        <span class="relative z-10 text-[3rem]">Ausflüge</span>
                     </span>
                     <br>
                     <p class="text-center text-gray-500 text-sm mt-1 uppercase tracking-wider">
@@ -50,10 +55,10 @@
                     </p>
                 </h2>
             </div>
-            <p class="italic mx-4 -mt-4 md:-mt-0 md:block text-center text-sm md:text-m">Wo gehen Sie am liebsten hin?<br><span class="md:block hidden">Ob draussen oder drinnen, bringen Sie schwung ins Leben anderer Menschen mit tollen Ideen.</span></p>
+            <p class="italic mx-4 -mt-4 md:-mt-0 md:block text-center text-[1rem] leading-tight">Wo gehen Sie am liebsten hin?<br><span class="">Ob draussen oder drinnen, bringen Sie schwung ins Leben anderer Menschen mit tollen Ideen.</span></p>
             <div class="flex items-center gap-2 justify-center mt-8">
                 <svg class="cursor-pointer btn-travel h-[2.8rem] w-[2.8rem] p-2 bg-blue-300 border rounded-xl " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
-                <p class="italic">Neuer Ausflug</p>
+                <p class="italic text-lg">Neuer Ausflug</p>
             </div>   
             <div class="flex justify-center flex-row mt-8 p-4 -ml-12">
                 <img class="md:h-36 md:w-36 h-24 w-24 object-cover rounded-full -mr-12 border-white border-4 z-10 " src="{{asset('imgs/travel/alpwirtschaft-horben-sommer-12.jpg')}}" alt="">
@@ -73,12 +78,14 @@
     <div class=" mt-24 md:mt-0">
   <div class="modal hidden m-4 sm:m-6 md:m-12 lg:m-16 p-4 sm:p-6 md:p-8 w-[90%] sm:w-[85%] md:w-[70%] lg:w-[55%] xl:w-[45%] 2xl:w-[40%] h-auto max-h-[90vh] overflow-y-auto bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl z-50">
             <span class="x-modal cursor-pointer p-1 border-none rounded-xl bg-gray-200 absolute right-2 top-2"><svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></span>
+            @auth
+                
             <form  enctype="multipart/form-data" class="grid grid-rows-[auto_auto_auto] md:grid-rows-[2fr_8fr]" method="POST" action="{{route('travel.store')}}">
                 @csrf
                 <div class="flex items-start md:flex-row flex-col justify-between gap-4">
                     <div class="relative flex flex-row imtes-center ustify-center gap-4 w-[100%]">
                         <label class="flex items-center justify-center text-[20px] md:text-xl" for="title">Titel:</label>
-                            <div class="input-title-error text-red-500 absolute top-[95%] left-[15%]"></div>
+                        <div class="input-title-error text-red-500 absolute top-[95%] left-[15%]"></div>
                         <input  class="input-title rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[70%]" name="title" id="title" type="text">
                     </div>
                     <div  class="flex flex-row imtes-center ustify-center gap-4 w-[70%]">
@@ -124,23 +131,31 @@
                             <label class="text-[20px] md:text-xl" for="gemeinde">Gemeinde:</label><br>
                             <div class="relative">
                                 <input autocomplete="off" class="gemeinde-input rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 md:w-[12.5rem] w-full h-full" name="gemeinde" id="gemeinde" type="text">
-                            <div class="gemeinde-preview absolute top-[3rem] left-[0%] rounded-l author-results bg-[#F2F2F2]"></div>
+                                <div class="gemeinde-preview absolute top-[3rem] left-[0%] rounded-l author-results bg-[#F2F2F2]"></div>
                             </div>
                         </div>
                     </div>
-                    <textarea class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[100%] h-[80%]" name="description"  id="description"></textarea>
+                    <textarea required class="rounded-xl outline-none focus:ring-0 focus:outline-none focus:border-gray-500 w-[100%] h-[80%]" name="description"  id="description"></textarea>
                 </div>
                 <div class="flex flex-row justify-between items-center mt-20  g">
                     <button
-                        type="submit"
-                        class="px-6 py-2  w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen
-                    </button>
-                    <label for="image" class="px-6 py-2 w-[30%] text-center cursor-pointer rounded-full bg-white text-black font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300 border-[2px] border-blue-500">
+                    type="submit"
+                    class="px-6 py-2  w-[30%] rounded-full bg-blue-500 text-white font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300">Teilen
+                </button>
+                <label for="image" class="px-6 py-2 w-[30%] text-center cursor-pointer rounded-full bg-white text-black font-semibold shadow-md hover:from-blue-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition-all duration-300 border-[2px] border-blue-500">
                     Foto
-                    </label>
-                    <input type="file" id="image" name="image" accept="image/*"class="hidden image">
-                </div>
-            </form>
+                </label>
+                <input type="file" id="image" name="image" accept="image/*"class="hidden image">
+            </div>
+        </form>
+        @endauth
+        @guest
+            <div class="flex flex-col items-center justify-center">
+                <p class="text-center items-center max-w-xl">
+                    Registrieren Sie sich im Forum, um aktiv teilzunehmen.
+                </p>
+            </div>
+        @endguest
         </div>
     </div>
     <script>
